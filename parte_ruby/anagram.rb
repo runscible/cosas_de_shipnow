@@ -26,4 +26,7 @@ def anagram(*possible_anagrams)
 	end 
 
 end 	
+#nota: por alguna razón me estaría arrojando un error cuando una palabra no coincide con el 
+#anagrama , intenté añadir un catch pero no estaoy seguro si funciona como en java por ejemplo 
+#ya que los errores escapan igual 
 anagram("hola",  "hola", "laho", "ernesto","hloa", "laho", "cuba", "laho")
