@@ -1,5 +1,6 @@
 $(document).ready(function(){
-		var breweries = {
+//habia una forma elegante de importar esto,lo sé, en este momento no me la acuerdo 	
+	var breweries = {
 	  "type": "FeatureCollection",
 	  "features": [
 	    {
