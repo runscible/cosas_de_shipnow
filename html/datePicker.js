@@ -9,7 +9,7 @@ $(document).ready(function(){
 			console.log(local_data); 
 		}, 
 		//nota: por alguna razón el api de nolaborables solo funciona en el parámetro 'error'
-		//del ajax de jquery 
+		//del ajax de jquery , no parece tener efectos colaterales 
 		error: function(data_error){
 			console.log("ERROR");
 			var list_days = []; 
@@ -24,48 +24,34 @@ $(document).ready(function(){
 				}
 				list_days.push(date_holydays); 
 			} 
-			//console.log(list_days);
+
+
 			
-			for (var i = 0 ; i < list_days.length; i ++){
-				console.log(list_days[i].year);
-				console.log(list_days[i].month);
-				console.log(list_days[i].day);
-				console.log("////");  
-			}		
-			var test = new Date("15/2/2018"); 
+			function getHolidays(list_days){
+				for (var i = 0; i < list_days.length; i++) {
+				    return list_days[i].day; 
+				}
+			}	
+			var test = "15-2-2018"; 
 			$("#date_picker").datepicker({
 				dayNamesMin:["Lun", "Mar", "Miérc", "Jue","Vier", "Sáb", "Dom" ], 
 				monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", 
 				"Octubre", "Noviembre", "Diciembre"] , 
 				maxDate: "+1m ", 
-				minDate: "-1y ",
-				beforeShowDay: function (date) {
-				   for (i = 0; i < list_days.length; i++) {
-					     if ( date.getFullYear() === list_days[i].year
-					     	  && date.getMonth() === list_days[i].month) {
-					        for(var a = 0 ; a < list_days[i].days.length; a++){
-					        	if(date.getDay() === list_days[i].days[a] ){
-					        		return [false]; 
-					        	}
-					        }
-					     }else{
-							return [true];
-					     }
-				   }
+				minDate: "-1y ", 
+				beforeShowDay: function(date){
+					var month = date.getMonth()+1; 
+					var year = date.getFullYear(); 
+					var day = date.getDay(); 
+					if(month === 2 && year === 2018 && day === 15){
+						return [false]; 
+					}else{
+						return [true]; 
+					}
 				}
-
 			});
 		}
 	});  
 }); 
 
 
-/*
-{
-  "1": {
-    "motivo": "Año Nuevo",
-    "tipo": "inamovible",
-    "id": "año-nuevo"
-  }
-}
-*/
