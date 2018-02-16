@@ -278,17 +278,24 @@ function getChanoDistance(lat1, lat2, lon1, lon2, unit){
 	
 }
 
-function getTheClosestBewery(){
-	
-}
-
-
 function def2grad(deg){
 	return deg * (Math.PI/180); 
 }
 
-
-for (var i = 0 ; i < breweries.features.length; i++){
-	var a = getChanoDistance(breweries.features[i].geometry.coordinates[0],0, breweries.features[i].geometry.coordinates[1],0);  
-	console.log(a); 
+//funcion para instanciar el punto de partida y ordenar las cervercerias de menor a mayor segun 
+//distancia 
+function getTheClosestBewery(initialLat, initialLong){
+	var list_breweries = []; 	
+	var brewerie_json = {name:'', distance:''};
+	for (var i = 0 ; i < breweries.features.length; i++){
+		var a = getChanoDistance(breweries.features[i].geometry.coordinates[0],initialLat, 
+										breweries.features[i].geometry.coordinates[1],initialLong);  
+			brewerie_json.name = breweries.features[i].properties.name; 
+			brewerie_json.distance = a; 
+			list_breweries.push(brewerie_json); 
+	}
+	console.log(list_breweries);
 }
+
+getTheClosestBewery(100, 100); 
+ 
