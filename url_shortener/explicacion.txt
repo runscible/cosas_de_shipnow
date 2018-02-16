@@ -1,0 +1,3 @@
+para un shortener que no necesite un id de usuario que se loguee podría asignar un usuario temporal con una cookie , el cual me de los datos de su navegador , locacion , etc . A partir de esto podría asignar un 'pseudo usuario' ,el cual podría combinar con un timestamp del servidor de x logitud mas las primeras letras de la url acortada para que el shortener sea mas facil de recordar. 
+
+Luego, estos valores se guardarían en el servidor y cada 6 meses se haría una limpieza (eso se puede automatizar en la base de datos directamente) 
