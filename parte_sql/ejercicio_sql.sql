@@ -1,0 +1,1 @@
+select dept_id,count('dept_id') as 'count', sum(salary) as 'sum_of_salary' from employee group by dept_id; 
