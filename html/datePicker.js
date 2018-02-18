@@ -14,41 +14,55 @@ $(document).ready(function(){
 			console.log("ERROR");
 			var list_days = []; 
 			var local_data = JSON.parse(data_error.responseText); 
+
+			/*
+	
+				toma el json que devuelve el api y lo convierte al formato de una lista con la que pueda trabajar el 
+				datepicker
+			*/
+
+			//asigna los valores del json a una lista con json chiquitos 
 			for(var i = 0 ; i < local_data.length; i++){
 				var date_holydays = {'month': '', 'day':[], 'year': '' };
-				date_holydays.month += i; 
+				
+					date_holydays.month = i ; 
+					date_holydays.month = parseInt(date_holydays.month) + 1; 
+					if(date_holydays.month < 10){
+						date_holydays.month = '0'+date_holydays.month; 
+					}
+				
+				 
 				date_holydays.year += date.getFullYear();
 				for (firstKey in local_data[i]){
+					if(firstKey < 10 ){
+						firstKey = '0'+firstKey; 
+					}
 					date_holydays.day.push(firstKey);  
 
 				}
-				list_days.push(date_holydays); 
-			} 
-
-
-			
-			function getHolidays(list_days){
-				for (var i = 0; i < list_days.length; i++) {
-				    return list_days[i].day; 
+				//desarma los json chiquitos y los guarda en una lista con formato especifico de fecha 
+				for(var a = 0 ; a < date_holydays.day.length; a++){
+					
+					console.log(date_holydays.month);  
+					list_days.push(date_holydays.day[a]+"-"+date_holydays.month+"-"+date_holydays.year); 	
 				}
-			}	
-			var test = "15-2-2018"; 
+				
+			} 
+			console.log(list_days); 
+				//funcion que toma los datos procesados por el api y los asigna como parametro al datepicker 
+			function DisableSpecificDates(date) {
+			    var string = jQuery.datepicker.formatDate('dd-mm-yy', date);
+			    return [list_days.indexOf(string) == -1];
+			  }
+				
+			
 			$("#date_picker").datepicker({
 				dayNamesMin:["Lun", "Mar", "Miérc", "Jue","Vier", "Sáb", "Dom" ], 
 				monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", 
 				"Octubre", "Noviembre", "Diciembre"] , 
 				maxDate: "+1m ", 
 				minDate: "-1y ", 
-				beforeShowDay: function(date){
-					var month = date.getMonth()+1; 
-					var year = date.getFullYear(); 
-					var day = date.getDay(); 
-					if(month === 2 && year === 2018 && day === 15){
-						return [false]; 
-					}else{
-						return [true]; 
-					}
-				}
+				beforeShowDay: DisableSpecificDates	
 			});
 		}
 	});  
