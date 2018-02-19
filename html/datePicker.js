@@ -52,7 +52,7 @@ $(document).ready(function(){
 				//funcion que toma los datos procesados por el api y los asigna como parametro al datepicker 
 			function DisableSpecificDates(date) {
 			    var string = jQuery.datepicker.formatDate('dd-mm-yy', date);
-			    return [list_days.indexOf(string) == -1];
+			    return [list_days.indexOf(string) == -1, 'holi'];
 			  }
 				
 			
@@ -64,6 +64,17 @@ $(document).ready(function(){
 				minDate: "-1y ", 
 				beforeShowDay: DisableSpecificDates	
 			});
+
+
+			$(document).on('click', '.ui-datepicker-next', function () {
+			  $(".ui-datepicker-title>span").hide().show(300);
+			  $(".ui-datepicker-calendar").hide('slide', { direction: 'right' }, 300).show('slide', { direction: 'left' }, 300)
+			}); 
+
+			$(document).on('click', '.ui-datepicker-prev', function () {
+			  $(".ui-datepicker-title>span").hide().show(300);
+			  $(".ui-datepicker-calendar").hide('slide', { direction: 'left' }, 300).show('slide', { direction: 'right' }, 300)
+			 }); 
 		}
 	});  
 }); 
